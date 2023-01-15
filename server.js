@@ -9,9 +9,15 @@ async function fetchData(id) {
     const result = await axios.get(URL);
     console.log('Request Send');
     console.log(result);
-    return res.status(200).json({
-        data: result.data
-    });
+    return result.data;
 }
+
+app.get('/getData/:id', async(req,res) => {
+    const { id } = req.params;
+    const result = await fetchData(id);
+    return res.status(200).json({
+        data: result
+    })
+})
 
 app.listen(PORT, () => console.log(`server running on port ${PORT}`));
